@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>函数的祖先Function</title>
+</head>
+<body>
+</body>
+</html>
+<script>
+    //es5
+    Function.prototype.addMethod=function (name,fn) {
+        //至于这里为什么不能用this[name]=fn;
+        // 经过测试得知:
+        //2, addMethod属于函数的静态方法,
+        //3, addMethod中的this指向Methods,
+        //4, Methods的原型是Object,
+        //5, 不能将函数添加到this(即Methods)上, 否则是Methods的静态方法, 实例不能调用.
+        this[name]=fn;
+        //这里的this也是Methods, 这里返回this主要是为了链式调用addMethod.
+        return this;
+    }
+    var Methods=function () {
+        test1:"test1";
+    };
+    console.log(Methods);
+    Methods.addMethod("checkName",function () {
+        console.log("checkName");
+       //这里的this是指Methods;这里的this,主要是为了链式调用checkEmail, checkPass, checkPass;
+        return this;
+    }).addMethod("checkEmail",function () {
+        console.log("checkEmail");
+        return this;
+    }).addMethod("checkPass",function () {
+        console.log("checkPass");
+        return this;
+    });
+//    console.log(Methods["checkName"]);
+//    console.log(Methods["checkEmail"]);
+//    console.log(Methods["checkPass"]);
+    var methods=new Methods();
+    methods.checkName().checkEmail().checkPass();
+    console.log("------------");
+
+</script>
+<script>
+    //es6
+    class Methods2 extends Function{
+        checkName(){
+            console.log("checkName");
+            return this;
+        }
+        checkEmail(){
+            console.log("checkEmail");
+            return this;
+        }
+        checkPass(){
+            console.log("checkPass");
+        }
+    }
+    let methods2=new Methods2();
+    methods2.checkName().checkEmail().checkPass();
+</script>
+
+
+
