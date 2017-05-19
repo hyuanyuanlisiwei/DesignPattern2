@@ -32,6 +32,7 @@
     var instance=new SubClass();
     console.log(instance.getSuperValue());
     console.log(instance.getSubValue());
+    console.log("-------------")
 
     //5, 导致的问题
     // SubClass.prototype=new SuperClass();
@@ -43,7 +44,31 @@
     //6, 解决办法
     // 把父类的构造函数当成一个普通函数进行调用
     // 则有了构造函数继承
+</script>
+<script>
+    //父类
+    class SuperClass2{
+        constructor(){
+            this.superValue=true;
+        }
+        getSuperValue(){
+            return this.superValue;
+        }
+    }
+    //子类
+    class SubClass2 extends SuperClass2{
+        constructor(){
+            super();
+            this.subValue=false;
+        }
+        getSubValue(){
+            return this.subValue;
+        }
+    }
+    let sub=new SubClass2("subclass");
+    console.log(sub.getSubValue());
+    console.log(sub.getSuperValue());
+
 
 
 </script>
-

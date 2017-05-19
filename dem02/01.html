@@ -17,10 +17,6 @@
         function checkBook(name){}
         //创建类
         function _Book(newId,newName,newPrice){
-            //私有变量;
-            var name,price;
-            //私有方法
-            function checkId(id){}
             //特权方法
             this.getName=function () { return newName};
             this.getPrice=function () { return newPrice};
@@ -40,36 +36,19 @@
     console.log(book.getName());
     console.log(book.getPrice());
     console.log(book.isJSBook);
+    console.log("--------------");
 </script>
 <script>
-    //es6
-    class Book2{
-        //类的静态私有属性(处于提案阶段)
-//        #bookNum;
-//        #checkBook(name){}
-
-        //实例属性
-        //构造器
-        constructor(newId,newName,newPrice){
-            this.id=newId;
-            this.name=newName;
-            this.price=newPrice;
-        }
-        //类的静态共有属性
-//        static author="hyylsw";
-        // 点语法 默认调用对应属性的getter,setter方法
-//        get name(){
-//            return this.name;
-//        }
-//        get price(){
-//            return this.price;
-//        }
-    }
-
-    let book2=new Book2(1,"vue",13);
-    let book3=new Book2(2,"angular",14);
-    console.log(book2.name+","+book2.price);
-    console.log(book3.name+","+book3.price);
+   class Book2{
+       constructor(newId,newName,newPrice){
+           this.id=newId;
+           this.name=newName;
+           this.price=newPrice;
+       }
+       display(){}
+   }
+   let book2=new Book2(1,"java",12.3);
+   console.log(book2.name);
 
 </script>
 

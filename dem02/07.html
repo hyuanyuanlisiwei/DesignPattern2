@@ -40,9 +40,42 @@
     }
     var A=new Add();
     console.log(A.add(23,45));
+    console.log("---------------------");
+</script>
+<script>
+    class Add2{
+        add(){
+            let len=arguments.length;
+            let ret=0;
+            switch(len){
+                case 0:
+                    ret=this.zero();
+                    break;
+                case 1:
+                    ret=this.one(arguments[0]);
+                    break;
+                case 2:
+                    ret=this.two(arguments[0],arguments[1]);
+                    break;
+            }
+            return ret;
+        }
+        zero() {
+            return 10;
+        }
+        one(num) {
+            return num+10;
+        }
+        two(num1,num2) {
+            return num1+num2;
+        }
+    }
+    let A2=new Add2();
+    console.log(A2.add(12,23));
+    console.log(A2.add(34));
+    console.log(A2.add());
 
 
 </script>
-
 
 

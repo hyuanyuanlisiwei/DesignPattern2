@@ -61,13 +61,63 @@
 
     var football=SportsFactory("wordCup");
     console.log(football);
-
-
-
-
-
 </script>
-
-
-
-
+<script>
+    //es5
+    //定义: 工厂可以创建很多对象, 根据客户需求的不同, 返回不同的创建对象
+    //篮球
+    class BasketBall2{
+        constructor(){
+            this.intro="篮球盛行与美国";
+        }
+        getMemeber () {
+            console.log("篮球需要5名队员");
+        }
+        getBallSize () {
+            console.log("篮球很大");
+        }
+    }
+    //足球
+    class FootBall2{
+        constructor(){
+            this.intro="足球盛行与美国";
+        }
+        getMemeber () {
+            console.log("足球需要11名队员");
+        }
+        getBallSize () {
+            console.log("足球很大");
+        }
+    }
+    //网球
+    class Tennis2{
+        constructor(){
+            this.intro="网球盛行与美国";
+        }
+        getMemeber () {
+            console.log("网球需要1名队员");
+        }
+        getBallSize () {
+            console.log("网球很大");
+        }
+    }
+    //球工厂
+    class SportsFactory2{
+        constructor(name){
+            this.name=name;
+            return this.getBall();
+        }
+        getBall(){
+            switch (this.name){
+                case "NBA":
+                    return new BasketBall();
+                case "wordCup":
+                    return new FootBall();
+                case "FrenchOpen":
+                    return new Tennis();
+            }
+        }
+    }
+    let football2= new SportsFactory2("wordCup");
+    console.log(football);
+</script>
