@@ -16,7 +16,7 @@
         //3, addMethod中的this指向Methods,
         //4, Methods的原型是Object,
         //5, 不能将函数添加到this(即Methods)上, 否则是Methods的静态方法, 实例不能调用.
-        this[name]=fn;
+        this.prototype[name]=fn;
         //这里的this也是Methods, 这里返回this主要是为了链式调用addMethod.
         return this;
     }

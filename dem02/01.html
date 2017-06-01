@@ -11,13 +11,13 @@
 <script>
     //es5
     var Book=(function () {
-        //静态私有变量
+        //私有变量
         var bookNum=0;
-        //静态私有方法
+        //私有方法
         function checkBook(name){}
         //创建类
         function _Book(newId,newName,newPrice){
-            //特权方法
+            //实例方法
             this.getName=function () { return newName};
             this.getPrice=function () { return newPrice};
         }
