@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>创建型设计模式--简单工厂模式</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //es5
+    //定义: 工厂可以创建很多对象, 根据客户需求的不同, 返回不同的创建对象
+    //篮球
+    var BasketBall=function () {
+        this.intro="篮球盛行与美国";
+    }
+    BasketBall.prototype={
+        getMemeber:function () {
+            console.log("篮球需要5名队员");
+        },
+        getBallSize:function () {
+            console.log("篮球很大");
+        }
+    }
+    //足球
+    var FootBall=function () {
+        this.intro="足球盛行与美国";
+    }
+    FootBall.prototype={
+        getMemeber:function () {
+            console.log("足球需要11名队员");
+        },
+        getBallSize:function () {
+            console.log("足球很大");
+        }
+    }
+    //网球
+    var Tennis=function () {
+        this.intro="网球盛行与美国";
+    }
+    Tennis.prototype={
+        getMemeber:function () {
+            console.log("网球需要1名队员");
+        },
+        getBallSize:function () {
+            console.log("网球很大");
+        }
+    }
+    //球工厂
+    var SportsFactory=function (name) {
+        switch (name){
+            case "NBA":
+                return new BasketBall();
+            case "wordCup":
+                return new FootBall();
+            case "FrenchOpen":
+                return new Tennis();
+        }
+    }
+
+    var football=SportsFactory("wordCup");
+    console.log(football);
+</script>
+<script>
+    //es5
+    //定义: 工厂可以创建很多对象, 根据客户需求的不同, 返回不同的创建对象
+    //篮球
+    class BasketBall2{
+        constructor(){
+            this.intro="篮球盛行与美国";
+        }
+        getMemeber () {
+            console.log("篮球需要5名队员");
+        }
+        getBallSize () {
+            console.log("篮球很大");
+        }
+    }
+    //足球
+    class FootBall2{
+        constructor(){
+            this.intro="足球盛行与美国";
+        }
+        getMemeber () {
+            console.log("足球需要11名队员");
+        }
+        getBallSize () {
+            console.log("足球很大");
+        }
+    }
+    //网球
+    class Tennis2{
+        constructor(){
+            this.intro="网球盛行与美国";
+        }
+        getMemeber () {
+            console.log("网球需要1名队员");
+        }
+        getBallSize () {
+            console.log("网球很大");
+        }
+    }
+    //球工厂
+    class SportsFactory2{
+        constructor(name){
+            this.name=name;
+            return this.getBall();
+        }
+        getBall(){
+            switch (this.name){
+                case "NBA":
+                    return new BasketBall();
+                case "wordCup":
+                    return new FootBall();
+                case "FrenchOpen":
+                    return new Tennis();
+            }
+        }
+    }
+    let football2= new SportsFactory2("wordCup");
+    console.log(football);
+
+    //遇到的问题：每次修改都要改变两个地方
+    //用工厂方法解决.
+
+</script>

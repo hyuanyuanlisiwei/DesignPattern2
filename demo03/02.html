@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>创建型设计模式--工厂方法模式</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //ES5
+    //1, 安全模式类: 屏蔽对该类的错误使用.
+    var Demo=function () {};
+    Demo.prototype={
+        show:function () {
+            console.log("成功获取");
+        }
+    };
+    //1.1 测试
+    //正确使用
+    var demo=new Demo();
+    demo.show();
+    //错误使用:把Demo当做一个普通函数使用
+    var demo2=Demo();
+//    demo2.show();//Uncaught TypeError: Cannot read property 'show' of undefined
+
+    //2, 安全的工厂方法
+    var Factory=function (type,content) {
+        if(this instanceof Factory){
+            var s=new this[type](content);
+            return s;
+        }else{
+            return new Factory(type,content);
+        }
+    }
+    Factory.prototype={
+        Java:function (content) {
+            console.log(content);
+        },
+        Php:function (content) {
+            console.log(content);
+        },
+        UI:function (content) {
+            console.log(content);
+        }
+    };
+    //2.1测试
+    var data=[
+        {type:"Java",content:"Java Content"},
+        {type:"Php",content:"Php Content"},
+        {type:"UI",content:"UI Content"}
+    ];
+    for(var i=0;i<data.length;i++){
+        Factory(data[i]["type"],data[i]["content"]);
+    }
+    //通过type参数, 工厂不需要知道客户需要的具体类型.
+    //解决了简单工厂中, 增加一个类型,需要修改两处的麻烦.
+</script>
+<script>
+    //ES6实现工厂方法模式
+    class Factory2{
+        constructor(){ }
+        static factory(type,content){
+            return new Factory2[type](content);
+        }
+    }
+    Factory2.Java=class Java extends Factory2{
+        constructor(content){
+            super();
+            console.log(content);
+        }
+    };
+    Factory2.Php=class Php extends Factory2{
+        constructor(content){
+            super();
+            console.log(content);
+        }
+    };
+    Factory2.UI=class UI extends Factory2{
+        constructor(content){
+            super();
+            console.log(content);
+        }
+    };
+    //测试
+    let data2=[
+        {type:"Java",content:"Java Content"},
+        {type:"Php",content:"Php Content"},
+        {type:"UI",content:"UI Content"}
+    ];
+    for(let i=0;i<data2.length;i++){
+        Factory2.factory(data[i]["type"],data[i]["content"]);
+    }
+</script>

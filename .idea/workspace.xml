@@ -4,6 +4,10 @@
     <list default="true" id="461a3c09-88ec-4eaf-84f5-1b5100f74670" name="Default" comment="">
       <change type="DELETED" beforePath="$PROJECT_DIR$/demo03/01.html" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+<<<<<<< HEAD
+=======
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo03/01.html" afterPath="$PROJECT_DIR$/demo03/01.html" />
+>>>>>>> 5e2e3882197a9a87fd2e903751e8f11c0e5b3102
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -30,7 +34,11 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>gulp</find>
+      <find>Factory</find>
     </findStrings>
+    <replaceStrings>
+      <replace>Factory2</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -51,6 +59,8 @@
         <option value="$PROJECT_DIR$/dem02/05.html" />
         <option value="$PROJECT_DIR$/dem02/06.html" />
         <option value="$PROJECT_DIR$/demo03/01.html" />
+        <option value="$PROJECT_DIR$/demo03/03.html" />
+        <option value="$PROJECT_DIR$/demo03/02.html" />
       </list>
     </option>
   </component>
@@ -67,8 +77,15 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
+<<<<<<< HEAD
     <option name="width" value="1680" />
     <option name="height" value="1050" />
+=======
+    <option name="x" value="-1433" />
+    <option name="y" value="23" />
+    <option name="width" value="1440" />
+    <option name="height" value="877" />
+>>>>>>> 5e2e3882197a9a87fd2e903751e8f11c0e5b3102
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -128,7 +145,6 @@
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="FullScreen" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -229,14 +245,25 @@
       <workItem from="1494918523662" duration="564000" />
       <workItem from="1495158328128" duration="19027000" />
       <workItem from="1495179421942" duration="5333000" />
+<<<<<<< HEAD
       <workItem from="1495280060867" duration="3640000" />
       <workItem from="1495717518683" duration="133000" />
       <workItem from="1496293314313" duration="207000" />
+=======
+      <workItem from="1495188065145" duration="68000" />
+      <workItem from="1495502924728" duration="2833000" />
+      <workItem from="1495618973498" duration="3000" />
+      <workItem from="1495618979395" duration="152000" />
+>>>>>>> 5e2e3882197a9a87fd2e903751e8f11c0e5b3102
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="29420000" />
+=======
+    <option name="totallyTimeSpent" value="28496000" />
+>>>>>>> 5e2e3882197a9a87fd2e903751e8f11c0e5b3102
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -248,14 +275,20 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
+<<<<<<< HEAD
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
     <layout>
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11904762" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+=======
+    <frame x="-1433" y="23" width="1440" height="877" extended-state="6" />
+    <layout>
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32840028" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+>>>>>>> 5e2e3882197a9a87fd2e903751e8f11c0e5b3102
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.03373494" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24947146" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -293,48 +326,116 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/dem02/03.html">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="1856">
+=======
+        <state relative-caret-position="2304">
+>>>>>>> 5e2e3882197a9a87fd2e903751e8f11c0e5b3102
           <caret line="64" column="28" lean-forward="false" selection-start-line="64" selection-start-column="28" selection-end-line="64" selection-end-column="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dem02/04.html">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="1131">
+=======
+        <state relative-caret-position="1404">
+>>>>>>> 5e2e3882197a9a87fd2e903751e8f11c0e5b3102
           <caret line="39" column="26" lean-forward="false" selection-start-line="39" selection-start-column="26" selection-end-line="39" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dem02/05.html">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="1798">
+=======
+        <state relative-caret-position="2232">
+>>>>>>> 5e2e3882197a9a87fd2e903751e8f11c0e5b3102
           <caret line="62" column="0" lean-forward="false" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dem02/07.html">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="1247">
-          <caret line="43" column="9" lean-forward="true" selection-start-line="43" selection-start-column="9" selection-end-line="43" selection-end-column="9" />
+=======
+        <state relative-caret-position="1548">
+          <caret line="43" column="9" lean-forward="false" selection-start-line="43" selection-start-column="9" selection-end-line="43" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dem02/06.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2175">
+        <state relative-caret-position="2700">
           <caret line="75" column="39" lean-forward="false" selection-start-line="75" selection-start-column="39" selection-end-line="75" selection-end-column="39" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/demo03/01.html">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1332">
+          <caret line="90" column="5" lean-forward="true" selection-start-line="90" selection-start-column="5" selection-end-line="90" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dem02/03.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2304">
+          <caret line="64" column="28" lean-forward="false" selection-start-line="64" selection-start-column="28" selection-end-line="64" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dem02/04.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1404">
+          <caret line="39" column="26" lean-forward="false" selection-start-line="39" selection-start-column="26" selection-end-line="39" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dem02/05.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2232">
+          <caret line="62" column="0" lean-forward="false" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dem02/07.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1548">
+>>>>>>> 5e2e3882197a9a87fd2e903751e8f11c0e5b3102
+          <caret line="43" column="9" lean-forward="true" selection-start-line="43" selection-start-column="9" selection-end-line="43" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dem02/06.html">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="2175">
+=======
+        <state relative-caret-position="2700">
+>>>>>>> 5e2e3882197a9a87fd2e903751e8f11c0e5b3102
+          <caret line="75" column="39" lean-forward="false" selection-start-line="75" selection-start-column="39" selection-end-line="75" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo03/01.html">
+      <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="986">
+=======
+        <state relative-caret-position="1224">
+>>>>>>> 5e2e3882197a9a87fd2e903751e8f11c0e5b3102
           <caret line="87" column="24" lean-forward="true" selection-start-line="87" selection-start-column="24" selection-end-line="87" selection-end-column="24" />
         </state>
       </provider>
@@ -349,6 +450,7 @@
     <entry file="file://$PROJECT_DIR$/.gitignore" />
     <entry file="file://$PROJECT_DIR$/demo01/01.html">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="406">
           <caret line="41" column="24" lean-forward="true" selection-start-line="41" selection-start-column="24" selection-end-line="41" selection-end-column="24" />
         </state>
@@ -358,18 +460,28 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="224">
           <caret line="8" column="7" lean-forward="true" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
+=======
+        <state relative-caret-position="553">
+          <caret line="70" column="0" lean-forward="true" selection-start-line="48" selection-start-column="3" selection-end-line="70" selection-end-column="0" />
+>>>>>>> 5e2e3882197a9a87fd2e903751e8f11c0e5b3102
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dem02/01.html">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="595">
           <caret line="55" column="0" lean-forward="true" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+=======
+        <state relative-caret-position="498">
+          <caret line="50" column="27" lean-forward="true" selection-start-line="50" selection-start-column="27" selection-end-line="50" selection-end-column="27" />
+>>>>>>> 5e2e3882197a9a87fd2e903751e8f11c0e5b3102
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dem02/03.html">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="362">
           <caret line="70" column="24" lean-forward="true" selection-start-line="70" selection-start-column="24" selection-end-line="70" selection-end-column="24" />
         </state>
@@ -379,42 +491,85 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1681">
           <caret line="58" column="40" lean-forward="false" selection-start-line="58" selection-start-column="40" selection-end-line="58" selection-end-column="40" />
+=======
+        <state relative-caret-position="2304">
+          <caret line="64" column="28" lean-forward="false" selection-start-line="64" selection-start-column="28" selection-end-line="64" selection-end-column="28" />
+>>>>>>> 5e2e3882197a9a87fd2e903751e8f11c0e5b3102
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dem02/04.html">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="619">
           <caret line="43" column="0" lean-forward="true" selection-start-line="33" selection-start-column="3" selection-end-line="43" selection-end-column="0" />
+=======
+        <state relative-caret-position="1404">
+          <caret line="39" column="26" lean-forward="false" selection-start-line="39" selection-start-column="26" selection-end-line="39" selection-end-column="26" />
+>>>>>>> 5e2e3882197a9a87fd2e903751e8f11c0e5b3102
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dem02/05.html">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="786">
           <caret line="62" column="0" lean-forward="true" selection-start-line="42" selection-start-column="3" selection-end-line="62" selection-end-column="0" />
+=======
+        <state relative-caret-position="2232">
+          <caret line="62" column="0" lean-forward="false" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+>>>>>>> 5e2e3882197a9a87fd2e903751e8f11c0e5b3102
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dem02/06.html">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="641">
           <caret line="76" column="39" lean-forward="true" selection-start-line="76" selection-start-column="3" selection-end-line="76" selection-end-column="39" />
+=======
+        <state relative-caret-position="2700">
+          <caret line="75" column="39" lean-forward="false" selection-start-line="75" selection-start-column="39" selection-end-line="75" selection-end-column="39" />
+>>>>>>> 5e2e3882197a9a87fd2e903751e8f11c0e5b3102
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dem02/07.html">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="558">
           <caret line="75" column="26" lean-forward="true" selection-start-line="45" selection-start-column="4" selection-end-line="75" selection-end-column="26" />
+=======
+        <state relative-caret-position="1548">
+          <caret line="43" column="9" lean-forward="false" selection-start-line="43" selection-start-column="9" selection-end-line="43" selection-end-column="9" />
+>>>>>>> 5e2e3882197a9a87fd2e903751e8f11c0e5b3102
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/demo03/01.html">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="367">
           <caret line="108" column="9" lean-forward="false" selection-start-line="108" selection-start-column="9" selection-end-line="108" selection-end-column="9" />
           <folding />
+=======
+        <state relative-caret-position="-1931">
+          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo03/02.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="84" column="6" lean-forward="true" selection-start-line="84" selection-start-column="6" selection-end-line="84" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo03/03.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+>>>>>>> 5e2e3882197a9a87fd2e903751e8f11c0e5b3102
         </state>
       </provider>
     </entry>
