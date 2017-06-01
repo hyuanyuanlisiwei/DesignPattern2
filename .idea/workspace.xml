@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="461a3c09-88ec-4eaf-84f5-1b5100f74670" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/demo03/01.html" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dem02/01.html" afterPath="$PROJECT_DIR$/dem02/01.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dem02/03.html" afterPath="$PROJECT_DIR$/dem02/03.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dem02/04.html" afterPath="$PROJECT_DIR$/dem02/04.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dem02/06.html" afterPath="$PROJECT_DIR$/dem02/06.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo01/02.html" afterPath="$PROJECT_DIR$/demo01/02.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo03/01.html" afterPath="$PROJECT_DIR$/demo03/01.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -94,20 +89,6 @@
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DesignPattern2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DesignPattern2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="demo03" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="DesignPattern2" />
@@ -250,12 +231,12 @@
       <workItem from="1495179421942" duration="5333000" />
       <workItem from="1495280060867" duration="3640000" />
       <workItem from="1495717518683" duration="133000" />
-      <workItem from="1496293314313" duration="18000" />
+      <workItem from="1496293314313" duration="207000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29231000" />
+    <option name="totallyTimeSpent" value="29420000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -431,8 +412,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/demo03/01.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="659">
-          <caret line="121" column="26" lean-forward="true" selection-start-line="103" selection-start-column="0" selection-end-line="121" selection-end-column="26" />
+        <state relative-caret-position="367">
+          <caret line="108" column="9" lean-forward="false" selection-start-line="108" selection-start-column="9" selection-end-line="108" selection-end-column="9" />
+          <folding />
         </state>
       </provider>
     </entry>
