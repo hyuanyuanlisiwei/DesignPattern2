@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>享元模式--对其数据,方法共享分离</title>
+</head>
+<body>
+<div id="container">
+
+</div>
+<button id="next_page">下一页</button>
+</body>
+</html>
+<script>
+   var Flyweight=(function () {
+       var created=[];
+       function create() {
+           var dom=document.createElement('div');
+           document.getElementById('container').appendChild(dom);
+           created.push(dom);
+           return dom;
+       }
+       return {
+           getDiv:function () {
+               if(created.length<5){
+                   return create();
+               }else{
+                   var div=created.shift();
+                   created.push(div);
+                   return div;
+               }
+           }
+       }
+   })();
+
+   var article=['一图看懂习近平强军布局:强“军体”固“军魂','十八大以来 习近平这样部署军民融合','男童被卷车下路人齐抬车',
+    '中纪委机关报谈反腐:得罪千百人 不负十三亿人民','春夏文艺性感气场十足','曾舜晞展现少年本色',
+   '解放军军舰开进欧洲内湖 为了什么大事？','川普:最有总统范儿的 除了林肯就是我','中财办副主任：中国经济不会陷入中等收入陷阱',
+   '中关村国家示范区','海淀区1+4+1政策体系','白发越拔越多是真的吗？','大学生揣50元在上海生存15天 10余天赚近1.5万'];
+   var paper=0, num=5, len=article.length;
+
+    for(var i=0;i<num;i++){
+        Flyweight.getDiv().innerHTML=article[i];
+    }
+
+    document.getElementById('next_page').onclick=function () {
+        if(article.length<5){
+            return;
+        }
+        var n=(++paper)*num%len, j=0;
+        for(;j<num;j++){
+            if(article[n+j]){
+               Flyweight.getDiv().innerHTML=article[n+j];
+            }else if(article[n+j-len]){
+                Flyweight.getDiv().innerHTML=article[n+j-len];
+            }else{
+                Flyweight.getDiv().innerHTML='暂无新闻';
+            }
+        }
+    }
+
+</script>
+
+
+

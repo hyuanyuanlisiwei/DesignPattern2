@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>外观模式---为一组复杂的子系统接口提供一个更高级的统一接口</title>
+    <style>
+        #box{
+            width:100px;
+            height:100px;
+            background-color: #f00;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+    </div>
+</body>
+</html>
+<script>
+    //外观模式
+   function addEvent(dom,type,fn) {
+       if(dom.addEventListener){
+           dom.addEventListener(type,fn,false);
+       }else if(dom.attachEvent){
+           dom.attachEvent('on'+type,fn);
+       }else{
+           dom['on'+type]=fn;
+       }
+   }
+   //获取事件对象
+    var getEvent=function (event) {
+        return event || window.event;
+    }
+    //获取元素
+    var getTarget=function (event) {
+        var event=getEvent(event);
+        return event.target || event.srcElement;
+    }
+    //阻止默认的行为
+    var preventDefault=function (event) {
+       var event=getEvent(event);
+       if(event.preventDefault){
+           event.preventDefault();
+       }else{
+           event.returnValue=false;
+       }
+    }
+
+
+
+</script>
+
+
+

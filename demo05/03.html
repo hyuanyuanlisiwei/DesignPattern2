@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组合模式---将对象组合成树形结构以表示'部分整体'的层次结构</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    var News=function () {
+        this.children=[];
+        this.element=null;
+    }
+    News.prototype={
+        init:function () {
+            throw new Error('请重写你的的方法!');
+        },
+        add:function () {
+            throw new Error('请重写你的方法!');
+        },
+        getElement:function () {
+            throw new Error('请重写你的方法!');
+        }
+    };
+    //容器类
+    var Container=function (id,parent) {
+        News.call(this);
+        this.id=id;
+        this.parent=parent;
+        this.init();
+    }
+    //寄生式继承
+    inheritProto(Container,News);
+    Container.prototype.init=function () {
+        this.element=document.createElement('ul');
+        this.element.id=this.id;
+        this.element.className='new-container';
+    }
+    Container.prototype.add=function (child) {
+        this.children.push(child);
+        this.element.appendChild(child.getElement());
+        return this;
+    }
+    Container.prototype.getElement=function () {
+        return this.element;
+    }
+    Container.prototype.show=function () {
+        this.parent.appendChild(this.element);
+    }
+    //行成员集合类
+    var Item=function (className) {
+        News.call(this);
+        this.className=className || '';
+        this.init();
+    }
+    inheritProto(Item,News);
+    Item.prototype.init=function () {
+        this.element=document.createElement('li');
+        this.element.className=this.className;
+    }
+    Item.prototype.add=function (child) {
+        this.children.push(child);
+        this.element.appendChild(child.getElement());
+        return this;
+    }
+    Item.prototype.getElement=function () {
+        return this.element;
+    }
+    //新闻组合体类
+    var NewsGroup=function (className) {
+        News.call(this);
+        this.className=className || '';
+        this.init();
+    }
+    inheritProto(NewsGroup,News);
+    NewsGroup.prototype.init=function (classNmae) {
+        this.element=document.createElement('div');
+        this.element.className=this.className;
+    }
+    NewsGroup.prototype.add=function (child) {
+        this.children.push(child);
+        this.element.appendChild(child.getElement());
+        return this;
+    }
+    NewsGroup.prototype.getElement=function () {
+        return this.element;
+    }
+    //寄生式组合继承
+    function inheritObject(o) {
+        function F() {}
+        F.prototype=o;
+        return new F();
+    }
+    function inheritProto(subClass,superClass) {
+        //使用原型继承创建一个父类的子类;
+        var middle=inheritObject(superClass);
+        //子类的原型指向middle
+        subClass.prototype=middle;
+        //middle的构造属性指向子类
+        middle.constructor=subClass;
+    }
+    //-------创建一个新闻类--------
+    var ImageNews=function (url,href,className) {
+        News.call(this);
+        this.url=url || '';
+        this.href=href || '';
+        this.className=className || '';
+        this.init();
+    }
+    inheritProto(ImageNews,News);
+    ImageNews.prototype.init=function () {
+        this.element=document.createElement('a');
+        var img=new Image();
+        img.src=this.url;
+        this.element.appendChild(img);
+        this.element.className='image-news '+this.className;
+        this.element.href=this.href;
+    }
+    ImageNews.prototype.add=function () {}
+    ImageNews.prototype.getElement=function () {
+        return this.element;
+    }
+    //------一个基类新闻--------
+    var IconNews=function (text,href,type) {
+        News.call(this);
+        this.text=text || '';
+        this.href=href || '';
+        this.type=type || 'video';
+        this.init();
+    }
+    inheritProto(IconNews,News);
+    IconNews.prototype.init=function () {
+        this.element=document.createElement('a');
+        this.element.innerHTML=this.text;
+        this.element.href=this.href;
+        this.element.className='icon '+this.type;
+    }
+    IconNews.prototype.add=function (){}
+    IconNews.prototype.getElement=function () {
+        return this.element;
+    }
+    //--------一个基类新闻----------
+    var EasyNews=function (text,href) {
+        News.call(this);
+        this.text=text || '';
+        this.href=href || '';
+        this.init();
+    }
+    inheritProto(EasyNews,News);
+    EasyNews.prototype.init=function () {
+        this.element=document.createElement('a');
+        this.element.innerHTML=this.text;
+        this.element.href=this.href;
+        this.element.className='text';
+
+    }
+    EasyNews.prototype.add=function () {};
+    EasyNews.prototype.getElement=function () {
+        return this.element;
+    }
+    //------一个基类新闻----------
+    var TypeNews=function (text,href,type,pos) {
+        News.call(this);
+        this.text=text || '';
+        this.href=href || '#';
+        this.type=type || '';
+        this.pos=pos || 'left'
+        this.init();
+    }
+    inheritProto(TypeNews,News);
+    TypeNews.prototype.init=function () {
+        this.element=document.createElement('a');
+        if(this.pos=='left'){
+            this.element.innerHTML='['+this.type+'] '+this.text;
+        }else{
+            this.element.innerHTML=this.text+' ['+this.type+']';
+        }
+        this.element.href=this.href;
+        this.element.className='text';
+    }
+    TypeNews.prototype.add=function () {}
+    TypeNews.prototype.getElement=function () {
+        return this.element;
+    }
+
+    //创建新闻
+    var news1=new Container('news',document.body);
+//    news1.add(
+//        new Item('normal').add(
+//            new IconNews('保护强国队用意明显','#','live')
+//        )
+//    ).show();
+    news1.add(
+        new Item('normal').add(
+            new IconNews('保护强国队用意明显','#','live')
+        )
+    ).add(
+        new Item('normal').add(
+            new NewsGroup('has-img').add(
+                new ImageNews('img/1.jpeg','#','small')
+            ).add(
+                new EasyNews('从240斤胖子成功变型男','#')
+            )
+        )
+    ).add(
+        new EasyNews('五大雷人跑步机','#')
+    ).add(
+        new Item('normal').add(
+            new TypeNews('AK47不愿为费城打球','#','NBA','left')
+        )
+    ).add(
+        new Item('normal').add(
+            new TypeNews('火炮飚6三分创新高','#','CBA','right')
+        )
+    ).show();
+</script>
+
+
+

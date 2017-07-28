@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模板方法模式---将多个模型抽象化归一,从中抽象提取一个最基本的模板</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //1,创建基本提示框
+    var Alert=function (data) {
+        if(!data){
+            return;
+        }
+        this.content=data.content;
+        this.panel=document.createElement('div');
+        this.contentNode=document.createElement('p');
+        this.confirmBtn=document.createElement('span');
+        this.closeBtn=document.createElement('b');
+        this.panel.className='alert';
+        this.closeBtn.className='a-close';
+        this.confirmBtn.className='a-confirm';
+        this.confirmBtn.innerHTML=data.confirm || '确认';
+//        this.closeBtn.innerHTML=data.close || '取消';
+
+        this.contentNode.innerHTML=this.content;
+        this.success=data.success || function(){};
+        this.fail=data.fail || function(){};
+    }
+
+    Alert.prototype={
+        init:function () {
+            this.panel.appendChild(this.closeBtn);
+            this.panel.appendChild(this.contentNode);
+            this.panel.appendChild(this.confirmBtn);
+            document.body.appendChild(this.panel);
+            this.bindEvent();
+            this.show();
+        },
+        bindEvent:function () {
+            var me=this;
+            this.closeBtn.onclick=function () {
+                me.fail();
+                me.hide();
+            }
+            this.confirmBtn.onclick=function(){
+                me.success();
+                me.hide();
+            }
+        },
+        hide:function () {
+            this.panel.style.display='none';
+        },
+        show:function () {
+            this.panel.style.display='block';
+        }
+    };
+    //---创建类:右侧按钮提示框
+    var RightAlert=function (data) {
+        Alert.call(this,data);
+        this.confirmBtn.className=this.confirmBtn.className+' right';
+    }
+    RightAlert.prototype=new Alert();
+    //---创建类:标题提示框
+    var TitleAlert=function (data) {
+        Alert.call(this,data);
+        this.title=data.title;
+        this.titleNode=document.createElement('h3');
+        this.titleNode.innerHTML=this.title;
+    }
+    TitleAlert.prototype=new Alert();
+    TitleAlert.prototype.init=function () {
+        Alert.prototype.init.call(this);
+        this.panel.insertBefore(this.titleNode,this.panel.firstChild);
+    }
+    //---创建类:取消按钮提示框
+    var CancelAlert=function (data) {
+        TitleAlert.call(this,data);
+        this.cancel=data.cancel;
+        this.cancelBtn=document.createElement('span');
+        this.cancelBtn.className='cancel';
+        this.cancelBtn.innerHTML=this.cancel || '取消';
+    }
+    CancelAlert.prototype=new Alert();
+    CancelAlert.prototype.init=function () {
+        TitleAlert.prototype.init.call(this);
+        this.panel.appendChild(this.cancelBtn);
+    }
+    CancelAlert.prototype.bindEvent=function () {
+        var me=this;
+        TitleAlert.prototype.bindEvent.call(me);
+        this.cancelBtn.onclick=function () {
+            me.fail();
+            me.hide();
+        }
+    }
+
+    //-----测试
+    new CancelAlert({
+        title:'标题',
+        content:'内容',
+        success:function () {
+            alert('ok');
+        },
+        fail:function () {
+            alert('cancel');
+        }
+    }).init();
+
+</script>
+
+

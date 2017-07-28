@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>桥接模式---实现层和抽象层解耦分离</title>
+</head>
+<body>
+ <div class="nav-list">
+     <span>雨夜清荷</span>
+     <span>等级<strong>9</strong></span>
+     <span>消息<strong>5</strong></span>
+ </div>
+</body>
+</html>
+<script>
+//    window.onload=function () {
+//      var spans=document.getElementsByTagName('span');
+//      spans[0].onmouseover=function () {
+//          this.style.color='red';
+//          this.style.background='#ddd';
+//      }
+//      spans[0].onmouseout=function () {
+//          this.style.color='#333';
+//          this.style.background='#f5f5f5';
+//      }
+//      spans[1].onmouseover=function () {
+//          this.getElementsByTagName('strong')[0].style.color='red';
+//          this.getElementsByTagName('strong')[0].style.background='#ddd';
+//      }
+//      spans[1].onmouseout=function () {
+//          this.getElementsByTagName('strong')[0].style.color='#333';
+//          this.getElementsByTagName('strong')[0].background='#f5f5f5';
+//      }
+//      spans[2].onmouseover=function () {
+//          this.getElementsByTagName('strong')[0].style.color='red';
+//          this.getElementsByTagName('strong')[0].style.background='#ddd';
+//      }
+//      spans[2].onmouseout=function () {
+//          this.getElementsByTagName('strong')[0].style.color='#333';
+//          this.getElementsByTagName('strong')[0].background='#f5f5f5';
+//      }
+//    }
+      window.onload=function () {
+          var spans=document.getElementsByTagName('span');
+          spans[0].onmouseover=function () {
+              changeColor(this,'red','#ddd');
+          }
+          spans[0].onmouseout=function () {
+              changeColor(this,'#333','#f5f5f5');
+          }
+          spans[1].onmouseover=function () {
+              changeColor(this.getElementsByTagName('strong')[0],'red','#ddd');
+          }
+          spans[1].onmouseout=function () {
+              changeColor(this.getElementsByTagName('strong')[0],'#333','#f5f5f5');
+          }
+          spans[2].onmouseover=function () {
+              changeColor(this.getElementsByTagName('strong')[0],'red','#ddd');
+          }
+          spans[2].onmouseout=function () {
+              changeColor(this.getElementsByTagName('strong')[0],'#333','#f5f5f5');
+          }
+      }
+    function changeColor(dom,color,bg) {
+        dom.style.color=color;
+        dom.style.background=bg;
+    }
+</script>
+
+

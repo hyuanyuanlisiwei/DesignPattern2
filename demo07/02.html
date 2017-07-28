@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>观察者模式</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    var Observer=(function () {
+        var _messages={};
+        return {
+          regist:function (type,fn) {
+              if(typeof _messages[type]=='undefined'){
+                  _messages[type]=[fn];
+              }else{
+                  _messages[type].push(fn);
+              }
+              return this;
+          },
+          fire:function (type,args) {
+              if(!_messages[type]){
+                  return;
+              }
+              var events={
+                  type:type,
+                  args:args || ''
+              };
+              for(var i=0;i<_messages[type].length;i++){
+                  _messages[type][i].call(this,events);
+              }
+              return this;
+          },
+          remove:function (type,fn) {
+              if(_messages[type] instanceof Array){
+                  for(var i=_messages[type].length;i>=0;i--){
+                      _messages[type][i]===fn && _messages[type].splice(i,1);
+                  }
+              }
+              return this;
+          }
+        };
+    })();
+
+    //学生类;
+    var Student=function (result) {
+        var that=this;
+        that.result=result;
+        that.say=function () {
+            console.log(that.result);
+        }
+    };
+    Student.prototype.answer=function (question) {
+        Observer.regist(question,this.say);
+    }
+    Student.prototype.sleep=function (question) {
+        console.log(this.result+" "+question+' 已被注销!');
+        Observer.remove(question,this.say);
+    }
+    //老师类
+    var Teacher=function () {};
+    Teacher.prototype.ask=function (question) {
+        console.log("问题是:"+question);
+        Observer.fire(question);
+    }
+    //测试
+    var stu1=new Student('学生一的回答');
+    var stu2=new Student('学生二的回答');
+    var stu3=new Student('学生三的回答');
+
+    stu1.answer('什么是设计模式');
+    stu2.answer('什么是设计模式');
+    stu3.answer('什么是设计模式');
+
+    stu3.sleep('什么是设计模式');
+
+    var teacher=new Teacher();
+    teacher.ask('什么是设计模式');
+    teacher.ask('简述观察者模式');
+
+
+</script>
+
+

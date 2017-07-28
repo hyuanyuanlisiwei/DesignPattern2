@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>装饰者模式</title>
+</head>
+<body>
+<span id="tel_demo_text">以下的input为必填项啊</span>
+<input type="text" id="tel_input"><span id="tel_warn_text" style="display: none">这个是必填项</span>
+</body>
+</html>
+<script>
+var telInput=document.getElementById('tel_input');
+var telWarnText=document.getElementById('tel_warn_text');
+var telDemoText=document.getElementById('tel_demo_text');
+telInput.onclick=function () {
+      alert(123);
+//    telWarnText.style.display='inline-block';
+//    telDemoText.style.display='none';
+}
+//装饰者
+var decorator=function (input,fn) {
+    var input=document.getElementById(input);
+    if(typeof input.onclick=='function'){
+        var oldClickFn=input.onclick;
+        input.onclick=function () {
+            oldClickFn();
+            fn();
+        }
+    }else{
+        input.onclick=fn;
+    }
+}
+
+decorator('tel_input',function () {
+    document.getElementById('tel_demo_text').style.display='none';
+    document.getElementById('tel_warn_text').style.display='inline-block';
+});
+
+
+
+
+</script>

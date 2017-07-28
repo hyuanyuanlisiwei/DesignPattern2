@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模板方法</title>
+</head>
+<body>
+    <div id="content"></div>
+</body>
+</html>
+<script>
+    var data=[{href:"www.baidu.com"}, {title:'我是百度'},{name:'我是百度科技有限公司'}];
+    function formateString(str,data) {
+        return str.replace(/\{#(\w+)#\}/g,function (match,key) {
+            return typeof data[key]==='undefined' ?'':data[key];
+        });
+    }
+    //基础导航;
+    var Nav=function (data) {
+        this.item='<a href="{#href#}" title="{#title#}">{#name#}</a>'
+        this.html='';
+        this.html='';
+        for(var i=0,len=data.length;i<len;i++){
+            this.item=formateString(this.item,data[i]);
+        }
+        return this.html;
+    }
+    var nav=document.getElementById('content');
+    nav.innerHTML=Nav(data);
+
+    var str='{#hyy#} {#lsw#} {#son#}';
+    var arr=['hello','china','world'];
+//    var str2=str.replace(/\{#(\w+)#\}/g,function (match,key) {
+//        return 'lsw';
+//    });
+    var html='';
+    for(var i=0;i<3;i++){
+        str=str.replace(/\{#(\w+)#\}/g,function(match,key){
+            return arr[i];
+        });
+    }
+    console.log(str);
+
+</script>
+

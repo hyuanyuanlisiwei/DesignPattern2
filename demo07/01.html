@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>观察者模式</title>
+</head>
+<body>
+<h3>最新用户消息数目:<span id="msg_num">0</span></h3>
+<ul id="msg"></ul>
+<textarea id="user_input" cols="30" rows="10"></textarea><button id="user_submit">发布消息</button>
+</body>
+</html>
+<script>
+    //观察者
+    var Observer=(function () {
+        var _message={};
+        return {
+            regist:function (type,fn) {
+                if(typeof _message[type] === 'undefined'){
+                    _message[type]=[fn];
+                }else{
+                    _message[type].push(fn);
+                }
+                return this;
+            },
+            fire:function (type,args) {
+                if(!_message[type]){
+                    return;
+                }
+                var events={
+                    type:type,
+                    args:args || {}
+                };
+                console.log('-----this-----');
+                console.log(this);
+                for(var i=0;i<_message[type].length;i++){
+                    _message[type][i].call(this,events);
+                }
+                return this;
+            },
+            remove:function (type,fn) {
+                if(_message[type] instanceof Array){
+                    var i=_message[type].length-1;
+                    for(;i>=0;i--){
+                        _message[type][i]===fn &&  _message[type].splice(i,1);
+                    }
+                }
+                return this;
+            }
+        }
+    })();
+//    Observer.regist('test',function (e) {
+//        console.log(e.type,e.args.msg);
+//    });
+//    Observer.regist('test',function (e) {
+//        console.log('第二次')
+//    });
+//    Observer.fire('test',{msg:'传递参数'});
+
+    //1,用户追加评论的功能
+    function $(id) {
+        return document.getElementById(id);
+    }
+    (function () {
+        function addMsgItem(e) {
+            var text=e.args.text,
+                ul=$('msg'),
+                li=document.createElement('li'),
+                span=document.createElement('span');
+            li.innerHTML=text;
+            span.innerHTML='删除';
+            //关闭按钮
+            span.onclick=function () {
+                ul.removeChild(li);
+                //发布删除留言消息
+                Observer.fire('removeCommentMsg',{
+                    num:-1
+                });
+            }
+            li.appendChild(span);
+            ul.appendChild(li);
+        }
+        //注册添加评论信息
+        Observer.regist('addCommentMsg',addMsgItem);
+    })();
+    //2, 实现用户信息功能
+    (function () {
+        function changeMsgNum(e) {
+            var num=e.args.num;
+            $('msg_num').innerHTML=parseInt($('msg_num').innerHTML)+num;
+        }
+        Observer.regist('addCommentMsg',changeMsgNum)
+                .regist('removeCommentMsg',changeMsgNum);
+
+    })();
+    //3,发布消息
+    (function () {
+        $('user_submit').onclick=function () {
+            var text=$('user_input');
+            if(text.value===''){
+                return;
+            }
+            Observer.fire('addCommentMsg',{
+                text:text.value,
+                num:1
+            });
+            text.value='';
+        }
+    })();
+</script>
+

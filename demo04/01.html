@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>单例模式</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+   //1,命名空间
+   var Ming={
+       g:function (id) {
+           return document.getElementById(id);
+       },
+       css:function (id,key,value) {
+           this.g(id).style[key]=value;
+       }
+   };
+   //2,模块分明
+   //3,创建一个小型代码库
+    var A={
+        Util:{
+          util_method1:function () {
+
+          },
+          util_method2:function () {
+
+          }
+        },
+        Tool:{
+            tool_method1:function () {
+
+            },
+            tool_method2:function () {
+
+            }
+        }
+    };
+    //4,无法修改的静态变量
+    var Conf=(function () {
+        //私有变量;
+        var conf={
+            MAX_NUM:100,
+            MIN_NUM:0,
+            COUNT:1000
+        };
+        return {
+            get:function (name) {
+                return conf[name] ? conf[name]:null;
+            }
+        }
+    })();
+    //5,惰性单例
+    var LazySingle=(function () {
+        var _instance=null;
+        //单例
+        function Single() {
+            return {
+                publicMethod:function () {
+
+                },
+                publicProp:1
+            }
+        }
+        return function () {
+            if(!_instance){
+                _instance=new Single();
+            }
+            return _instance;
+        }
+    })();
+</script>
+

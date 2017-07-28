@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>代理模式</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //1,站长统计
+    var Count=(function () {
+        var _img=new Image();
+        return function (param) {
+            var str='http://www.count.com/a.gif';
+            for(var key in param){
+                str+=key+'='+param[key];
+            }
+            _img.src=src;
+        }
+    });
+    Count({num:10});
+
+
+
+</script>
+
+

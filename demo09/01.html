@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>策略模式--把定义的一组算法封装起来,使其相互之间可以替换,封装的算法具有一定的独立性,不会随客户端的变化而变化</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    var PriceStrategy=(function () {
+        var strategy={
+            return30:function (price) {
+                return +price+parseInt(price/100)*30;
+            },
+            percent90:function (price) {
+                return price*100*90/10000;
+            }
+        };
+        return function (algo,price) {
+            return strategy[algo] && strategy[algo](price);
+        }
+    })();
+    //测试;
+    var price=PriceStrategy('return30','300');
+    console.log(price);
+
+
+</script>
+
+
