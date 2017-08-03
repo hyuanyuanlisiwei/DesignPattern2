@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>命令模式--将请求模块与实现模块解耦</title>
+    <style>
+        .product{
+            float: left;
+            height: 350px;
+            border: 1px solid black;
+        }
+        .product>img{
+            width:300px;
+            height: 300px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="title"></div>
+    <div id="product"></div>
+</body>
+</html>
+<script>
+
+
+    //命令对象
+    var viewCommand=(function () {
+        var tpl={
+            //展示图片结构模板
+            product:[
+                '<div class="product">',
+                    '<img src="{#src#}">',
+                    '<p>{#text#}</p>',
+                '</div>'
+            ].join(''),
+            //展示标题结构模板
+            title:[
+                '<div class="title">',
+                    '<div class="main">',
+                        '<h2>{#title#}</h2>',
+                        '<p>{#tips#}</p>',
+                    '</div>',
+                '</div>'
+            ].join('')
+        };
+        var html='';
+
+        function formateStr(str,obj){
+            return str.replace(/\{#(\w+)#\}/g,function (match,key) {
+                return obj[key];
+            });
+        }
+
+        var Action={
+            create:function (data,view) {
+                if(data.length){
+                    for(var i=0,len=data.length;i<len;i++){
+                        html+=formateStr(tpl[view],data[i]);
+                    }
+                }else{
+                    html+=formateStr(tpl[view],data);
+                }
+            },
+            display:function (container,data,view) {
+                if(data){
+                    this.create(data,view);
+                }
+                document.getElementById(container).innerHTML=html;
+                html='';
+            }
+        };
+        //命令接口
+        return function execute(msg) {
+            msg.param=Object.prototype.toString.call(msg.param)==='[object Array]' ? msg.param : [msg.param];
+            Action[msg.command].apply(Action,msg.param);
+        }
+    })();
+    //测试
+    var titleData={
+        title:'夏日里的一片温馨',
+        tips:'暖暖的温情带给人们家的感受'
+    };
+    viewCommand({
+        command:'display',
+        param:['title',titleData,'title']
+    });
+    var productData=[
+        {
+            src:'../01.jpeg',
+            text:'绽放的桃花'
+        },
+        {
+            src:'../02.jpeg',
+            text:'阳光下的温馨'
+        },
+        {
+            src:'../03.jpeg',
+            text:'镜头前的绿色'
+        }
+    ];
+    viewCommand({
+        command:'display',
+        param:['product',productData,'product']
+    });
+
+
+</script>
+

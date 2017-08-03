@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>迭代器模式</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //数组迭代器;
+    var eachArray=function (array,fn) {
+        var i=0;
+        var len=arr.length;
+        for(;i<len;i++){
+            if(fn.call(arr,i,arr[i])===false){
+                console.log('-----break-----');
+                break;
+            }
+        }
+    }
+    //测试
+    for(var arr=[],i=0;i<5;arr[i++]=i);
+    eachArray(arr,function (i, data){
+        if(i==3){
+            return false;
+        }
+        console.log(i,data);
+    });
+    //对象迭代器
+    var eachObject=function (obj,fn) {
+        for(var key in obj){
+            if(fn.call(null,key,obj[key])==false){
+                console.log('-----break-----');
+                break;
+            }
+        }
+    }
+    var obj={
+        a:23,
+        b:45,
+        c:56,
+        d:89
+    };
+    eachObject(obj,function (key,val) {
+        if(key=='c'){
+            return false;
+        }
+        console.log(key,val);
+    })
+
+
+
+
+</script>
+
+

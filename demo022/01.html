@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>等待者模式</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //通过对多个异步进程监听,来触发未来发生的动作.
+    //等待者对象用来解决那些不确定先后完成的异步逻辑的.
+    var Waiter=function () {
+        //监控对象容器
+        var dfd=[];
+        //成功回调方法容器
+        var doneArr=[];
+        //失败回调方法容器
+        var failArr=[];
+        //缓存Array的slice
+        var slice=Array.prototype.slice;
+        //保存当前等待者对象
+        var that=this;
+
+        //监控对象类
+        var Promise=function () {
+            //监控对象是否解决成功状态
+            this.resolved=false;
+            //监控对象是否解决失败状态
+            this.rejected=false;
+        }
+        Promise.prototype={
+            //解决成功
+            resolve:function () {
+                this.resolved=true;
+                if(!dfd.length){
+                    return;
+                }
+                for(var i=dfd.length-1;i>=0;i--){
+                    //只要有一个异步任务没有完成, 就return
+                    if(dfd[i] && !dfd[i].resolved || dfd[i].rejected){
+                        return;
+                    }
+                    dfd.splice(i,1);
+                }
+                _exec(doneArr);
+            },
+            //解决失败
+            reject:function () {
+                this.rejected=true;
+                if(!dfd.length){
+                    return;
+                }
+                dfd.splice(0);
+                console.log(dfd.length);
+                _exec(failArr);
+            }
+        };
+        //创建监控对象
+        that.Deferred=function () {
+            return new Promise();
+        }
+        //回调执行方法
+        function _exec(arr) {
+            for(var i=0;i<arr.length;i++){
+                try{
+                    arr[i] && arr[i]();
+                }catch(e){}
+            }
+        }
+        //监控异步方法: 参数:监控对象
+        //监测已注册过得监控对象的异步逻辑
+        that.when=function () {
+            dfd=slice.call(arguments);
+            var i=dfd.length;
+            for(--i;i>=0;i--){
+                if(!dfd[i] || !dfd[i] instanceof Promise || dfd[i].resolved || dfd[i].rejected ){
+                    dfd.splice(i,1);
+                }
+            }
+            return that;
+        }
+        //解决成功回调函数添加方法
+        that.done=function () {
+            doneArr=doneArr.concat(slice.call(arguments));
+            return that;
+        }
+        //解决失败回调函数添加方法
+        that.fail=function () {
+            failArr=failArr.concat(slice.call(arguments));
+            return that;
+        }
+    }
+    //测试
+    var waiter=new Waiter();
+    var first=function () {
+        var dfd=waiter.Deferred();
+        window.setTimeout(function () {
+            console.log('first finish!');
+            dfd.resolve();
+        },2000);
+        return dfd;
+    }();
+    var second=function () {
+       var dfd=waiter.Deferred();
+       window.setTimeout(function () {
+           console.log('second finish!');
+           dfd.reject();
+       },1000);
+       return dfd;
+    }();
+    //功能: 当异步任务first,second都执行完毕之后,在执行don中的函数;
+    waiter.when(first,second)
+        .done(function () {
+            console.log('success');
+        },function () {
+            console.log('success again');
+        })
+        .fail(function () {
+            console.log('fail');
+        });
+
+
+
+</script>
+
+

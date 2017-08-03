@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<img src="../01.jpeg" alt="">
+<canvas id="canvas"></canvas>
+</body>
+</html>
+<script>
+//    var Deal=(function () {
+//        var method={
+//            'default':function (i) {
+//                console.log(['defalut',i]);
+//            },
+//            'red':function (i) {
+//                console.log('red '+i);
+//            }
+//        };
+//        return function (type) {
+//            return method[type] || method['default'];
+//        }
+//    })();
+//   function eachData(fn) {
+//       for(var i=0;i<5;i++){
+//           fn(i);
+//       }
+//   }
+//   eachData(Deal('red'));
+
+
+    window.onload=function () {
+        var canvas=document.getElementById('canvas');
+        var img=document.getElementsByTagName('img')[0];
+        var width=(canvas.width=img.width*2)/2;
+        var height=(canvas.height=img.height);
+        var ctx=canvas.getContext('2d');
+        ctx.drawImage(img,0,0);
+
+        function dealImage(t,x,y,w,h,a) {
+            var canvasData=ctx.getImageData(x,y,w,h);
+            console.log(canvasData);
+            var data=canvasData.data;
+            for(var i=0,len=data.length;i<len;i+=4){
+                switch(t){
+                    case 'red':
+                        data[i+1]=0;
+                        data[i+2]=0;
+                        data[i+3]=a;
+                        break;
+                    case 'green':
+                        data[i]=0;
+                        data[i+2]=0;
+                        data[i+3]=a;
+                        break;
+                    case 'blue':
+                        data[i]=0;
+                        data[i+1]=0;
+                        data[i+3]=a;
+                        break;
+                    case 'gray':
+                        var num=parseInt((data[i]+data[i+1]+data[i+2])/3);
+                        data[i]=num;
+                        data[i+1]=num;
+                        data[i+2]=num;
+                        data[i+3]=a;
+                        break;
+                }
+            }
+            ctx.putImageData(canvasData,width+x,y);
+        }
+        //无用的分支判断浪费好多时间;
+        function dealImage2(t,x,y,w,h,a) {
+            var canvasData=ctx.getImageData(x,y,w,h);
+            var data=canvasData.data;
+
+            var Deal=(function () {
+                var method={
+                    'default':function (i) {
+                        return method['gray'](i);
+                    },
+                    'red':function (i) {
+                        data[i+1]=0;
+                        data[i+2]=0;
+                        data[i+3]=a;
+                    },
+                    'gray':function (i) {
+                        var num=parseInt((data[i]+data[i+1]+data[i+2])/3);
+                        data[i]=num;
+                        data[i+1]=num;
+                        data[i+2]=num;
+                        data[i+3]=a;
+                    },
+                    'green':function (i) {
+                        data[i]=0;
+                        data[i+2]=0;
+                        data[i+3]=a;
+                    },
+                    'blue':function (i) {
+                        data[i]=0;
+                        data[i+1]=0;
+                        data[i+3]=a;
+                    }
+                }
+                return function(type){
+                    return method[type] || method['default'];
+                }
+            })();
+            //迭代器处理数据
+            function eachData(fn) {
+                for(var i=0,len=data.length;i<len;i+=4){
+                    fn(i);
+                }
+            }
+            eachData(Deal(t));
+            ctx.putImageData(canvasData,width+x,y);
+        }
+        console.time('first');
+        dealImage('red',0,0,width,height,255);
+        console.timeEnd('first');
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>链模式</title>
+    <script src="../jquery-2.1.1.min.js"></script>
+</head>
+<body>
+    <div id="demo">123</div>
+    <div id="test">345</div>
+</body>
+</html>
+<script>
+    var A=function (selector,context) {
+        return new A.fn.init(selector,context);
+    }
+    A.fn=A.prototype={
+        constructor:A,
+        init:function (selector, context) {
+            this.length=0;
+            context=context || document;
+            if(~selector.indexOf('#')){
+                this[0]=document.getElementById(selector.slice(1));
+                this.length=1;
+            }else{
+                var doms=context.getElementsByTagName(selector);
+                for(var i=0,len=doms.length;i<len;i++){
+                    this[i]=doms[i];
+                }
+                this.length=len;
+            }
+            this.context=context;
+            this.selector=selector;
+            return this;
+        },
+        size:function () {
+            return this.length;
+        },
+        push:[].push,
+        sort:[].sort,
+        splice:[].splice
+    };
+    A.fn.init.prototype=A.fn;
+
+    A.extend=A.fn.extend=function () {
+        var i=1;
+        var len=arguments.length;
+        var target=arguments[0];
+
+        if(i==len){
+            target=this;
+            i--;
+        }
+        for(;i<len;i++){
+            for(var key in arguments[i]){
+                target[key]=arguments[i][key];
+            }
+        }
+        return target;
+    }
+
+   A.fn.extend({
+       on:(function () {
+          if(document.addEventListener){
+              return function (type,fn) {
+                  var i=this.length-1;
+                  for(;i>=0;i--){
+                      this[i].addEventListener(type,fn,false);
+                  }
+                  return this;
+              }
+          }else if(document.attachEvent){
+              return function (type,fn) {
+                  var i=this.length-1;
+                  for(;i>=0;i--){
+                      this[i].attachEvent('on'+type,fn);
+                  }
+                  return this;
+              }
+          }else{
+              var i=this.length-1;
+              for(;i>=0;i--){
+                  this[i]['on'+type]=fn;
+              }
+              return this;
+          }
+       })(),
+       css:function () {
+           var arg=arguments;
+           var len=arg.length;
+           if(this.length<1){
+               return this;
+           }
+           if(len===1){
+               if(typeof arg[0] === 'string'){
+                   if(this[0].currentStyle){
+                       return  this[0].currentStyle[name];
+                   }else{
+                       return window.getComputedStyle(this[0],false)[name];
+                   }
+               }else if(typeof arg[0] === 'object'){
+                   for(var key in arg[0]){
+                       for(var j=this.length-1;j>=0;j--){
+                           this[j].style[A.camelCase(key)]=arg[0][key];
+                       }
+                   }
+               }
+           }else if(len==2){
+               for(var j=this.length-1;j>=0;j--){
+                   this[j].style[A.camelCase(arg[0])]=arg[1];
+               }
+           }
+           return this;
+       },
+       attr:function () {
+           var arg=arguments;
+           var len=arg.length;
+           if(this.length<1){
+               return this;
+           }
+           if(len==1){
+               if(typeof arg[0] === 'string'){
+                   return this[0].getAttribute(arg[0]);
+               }else if(typeof arg[0] === 'object'){
+                   for(var key in arg[0]){
+                       for(var j=this.length-1;j>=0;j--){
+                           this[j].setAttribute(key,arg[0][key]);
+                       }
+                   }
+               }
+           }else if(len==2){
+               for(var j=this.length-1;j>=0;j--){
+                   this[j].setAttribute(arg[0],arg[1]);
+               }
+           }
+           return this;
+       },
+       html:function () {
+           var arg=arguments;
+           var len=arg.length;
+           if(len==0){
+               return this[0] && this[0].innerHTML;
+           }else{
+               for(var i=this.length-1;i>=0;i--){
+                   this[i].innerHTML=arg[0];
+               }
+           }
+           return this;
+       }
+   });
+   A.extend({
+       camelCase:function (str) {
+           return str.replace(/\-(\w)/g,function (all,letter) {
+               console.log(all,letter);
+               return letter.toUpperCase();
+           });
+       }
+   });
+   console.log(A.camelCase('border-color'));
+
+//    A('div').on('click',function () {
+//        alert(123);;
+//    });
+//    A('div').css('background-color','#f00');
+
+    A('div')
+        .css({
+            height:'300px',
+            width:'400px',
+            border:'1px solid #000',
+            'background-color':'#f00'
+        })
+        .attr('class','demo')
+        .html('add demo text')
+        .on('click',function(){
+            alert('clicked');
+        })
+
+
+</script>
+

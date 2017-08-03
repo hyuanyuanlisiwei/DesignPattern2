@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>节流模式</title>
+    <script src="../jquery-2.1.1.min.js"></script>
+    <style>
+        #icon{
+            width: 600px;
+        }
+        img{
+            display: none;
+        }
+        .show{
+            display: block;
+        }
+        li{
+            background-color: #f00;
+        }
+    </style>
+</head>
+<body>
+    <div id="icon" class="icon">
+        <ul class="icon">
+            <li class="weixin">微信</li>
+            <li class="weibo">微博</li>
+        </ul>
+        <div class="">
+            <img src="../01.jpeg" alt="" class="show">
+            <img src="../02.jpeg" alt="" >
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    //对重复的业务逻辑进行节流控制,执行最后一次操作并取消其他操作,以提高性能
+    function extend(target,source) {
+        for(var key in source){
+            target[key]=source[key];
+        }
+        return target;
+    }
+    //节流器
+    var throttle=function () {
+        var isClear=arguments[0],fn;
+        if(typeof isClear === 'boolean'){
+            fn=arguments[1];
+            fn._throttleID &&  clearTimeout(fn._throttleID);
+        }else{
+            fn=isClear;
+            var param=arguments[1];
+            var p=extend({
+                context:null,
+                args:[],
+                time:300
+            },param);
+            arguments.callee(true,fn);
+            fn._throttleID=setTimeout(function () {
+                fn.apply(p.context,p.args);
+            },p.time);
+        }
+    }
+    //逻辑
+    function $(id) {
+        return document.getElementById(id);
+    }
+    function $tag(tag,container) {
+        return container.getElementsByTagName(tag);
+    }
+    //浮层类
+    var Layer=function (id) {
+        this.container=$(id);
+        this.layer=$tag('div',this.container)[0];
+        console.log('-----layer-----');
+        console.log(this.layer);
+        this.lis=$tag('li',this.container);
+        this.imgs=$tag('img',this.container);
+
+        this.bindEvent();
+    }
+    Layer.prototype={
+        bindEvent:function () {
+            var that=this;
+            function hideLayer() {
+                console.log(that.layer);
+                that.layer.className='';
+                console.log(that.layer.className);
+            }
+            function showLayer() {
+                console.log(that.layer);
+                that.layer.className='show';
+                console.log(that.layer.className);
+            }
+            that.on(that.container,'mouseenter',function () {
+                console.log('mouseenter')
+                throttle(true,hideLayer);
+                throttle(showLayer);
+            }).on(that.container,'mouseleave',function () {
+               console.log('mouseleave');
+               throttle(true,showLayer);
+               throttle(hideLayer);
+            });
+            for(var i=0;i<that.lis.length;i++){
+                that.lis[i].index=i;
+                that.on(that.lis[i],'mouseenter',function () {
+                   var index=this.index;
+                   for(var j=0;j<that.imgs.length;j++){
+                       that.imgs[j].className='';
+                   }
+                   that.imgs[index].className='show';
+                });
+            }
+        },
+        on:function(ele,type,fn) {
+            ele.addEventListener ? ele.addEventListener(type,fn,false) : ele.attachEvent('on'+type,fn);
+            return this;
+        }
+    }
+    //使用
+    var layer=new Layer('icon');
+
+
+
+</script>

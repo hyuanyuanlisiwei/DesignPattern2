@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>参与者模式</title>
+    <style>
+        #box,p{
+            with:300px;
+            height: 300px;
+            background-color: #f00;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+
+    <button>我是一个按钮</button>
+    <p>我是一段文字</p>
+</body>
+</html>
+<script>
+    var A={event:{}};
+    A.event.on=function (dom,type,fn,data) {
+        if(dom.addEventListener){
+            dom.addEventListener(type,function (e) {
+                fn.call(dom,e,data);
+            },false);
+        }else if(dom.attachEvent){
+            dom.attachEvent('on'+type,function (e) {
+                fn.call(dom,e,data);
+            });
+        }else{
+            dom['on'+type]=function (e) {
+                fn.call(dom,e,data);
+            }
+        }
+    }
+
+    A.event.on(document.getElementById('box'),'click',function (e,data) {
+        console.log(e,data);
+    },{'name':'hyylsw','age':12});
+
+    //函数绑定
+    function bind(fn,context) {
+        return function () {
+            return fn.apply(context,arguments);
+        }
+    }
+
+    //测试
+//    var demoObj={
+//        title:'这是一个例子'
+//    };
+//    function demoFn() {
+//        console.log(this.title,arguments);
+//    }
+//    var bindFn=bind(demoFn,demoObj);
+//    bindFn({a:1,b:2});
+
+    //应用于事件
+    var btn=document.getElementsByTagName('button')[0];
+    var p=document.getElementsByTagName('p')[0];
+
+    function demoFn() {
+        console.log(arguments,this);
+    }
+//    var bindFn=bind(demoFn);
+//    var bindFn=bind(demoFn,btn);
+//    var bindFn=bind(demoFn,p);
+//    var bindFn=demoFn.bind(p);
+//    btn.addEventListener('click',bindFn);
+
+//    btn.removeEventListener('click',bindFn);
+
+    //函数柯里化: 对函数的参数分割
+    function curry(fn) {
+        var Slice=[].slice;
+        var args=Slice.call(arguments,1);
+        return function () {
+            console.log('0-------0');
+            console.log(args);
+            var addArgs=Slice.call(arguments);
+            var allArgs=args.concat(addArgs);
+            return fn.apply(null,allArgs);
+        }
+    }
+
+    function add(num1,num2){
+        return num1+num2;
+    }
+//    function add5(num) {
+//        return add(5,num);
+//    }
+//    console.log(add(1,2));
+//    console.log(add5(6));
+
+    var add5=curry(add,5);
+    console.log(add5(7));
+    var add7and8=curry(add);
+    console.log(add7and8(8,7));
+
+
+    //重构bind
+    function bind2(fn,context) {
+        var Slice=[].slice;
+        var args=Slice.call(arguments,2);
+        return function () {
+            var addArgs=Slice.call(arguments);
+            var allArgs=addArgs.concat(args);
+            return fn.apply(context,allArgs);
+        }
+    }
+
+    var demoData1={
+        text:'这是第一组数据'
+    };
+    var demoData2={
+        text:'这是第二组数据'
+    };
+    var bindFn2=bind2(demoFn,btn,demoData1,demoData2);
+    btn.addEventListener('click',bindFn2);
+
+
+
+
+</script>
+
+

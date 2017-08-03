@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>惰性模式</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //减少每次代码执行时的重复性的分支判断,通过对对象重定义来屏蔽元对象中的分支判断
+    var A={};
+    A.on=(function (dom, type, fn) {
+        if(document.addEventListener){
+            return function (dom,type,fn) {
+                dom.addEventListener(type,fn,false);
+            }
+        }else if(document.attachEvent){
+            return function (dom,type,fn) {
+                dom.attachEvent('on'+type,fn);
+            }
+        }else{
+            return function (dom,type,fn) {
+                dom['on'+type]=fn;
+            }
+        }
+    })();
+
+    console.log(A.on);
+
+
+
+</script>
+
+

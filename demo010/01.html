@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>职责链模式</title>
+</head>
+<body>
+    <div class="box1">
+        <input type="text">
+        <ul></ul>
+    </div>
+    <div class="box2">
+        <input type="text">
+        <span></span>
+    </div>
+</body>
+</html>
+<script>
+  //一, 请求模块
+  var sendData=function (data,dealType,dom) {
+      var retText='我是接口返回数据';
+      dealData(retText,dealType,dom);
+  }
+  //二, 响应数据适配模块
+  var dealData=function (data,dealType,dom) {
+      var dataType=Object.prototype.toString.call(data);
+      switch(dealType){
+          case 'sug':
+                if(dataType==='[object Array]'){
+                    return createSug(data,dom);
+                }
+                if(dataType==='[object Object]'){
+                    var newData=[];
+                    for(var key in data){
+                        newData.push(data[key]);
+                    }
+                    return createSug(newData,dom);
+                }
+                return createSug([data],dom);
+                break;
+          case 'validate':
+                return createValidateResult(data,dom);
+                break;
+      }
+  }
+  //三, 创建组件模块
+  var createSug=function (data,dom) {
+      var i=0, len=data.length, html='';
+      for(;i<len;i++){
+          html+='<li>'+data[i]+'</li>';
+      }
+      dom.parentNode.getElementsByTagName('ul')[0].innerHTML=html;
+  }
+  var createValidateResult=function (data, dom) {
+      dom.parentNode.getElementsByTagName('span')[0].innerHTML=data;
+  }
+  //测试
+  var input=document.getElementsByTagName('input');
+//  dealData(['aaa','bbb','ccc','ddd','eee'],'sug',input[0]);
+//  dealData('输入不符合要求','validate',input[1]);
+
+    input[0].onchange=function (e) {
+        sendData({value:input[0].value},'sug',input[0]);
+    }
+    input[1].onkeydown=function (e) {
+        sendData({value:input[1].value},'validate',input[1]);
+    }
+</script>
+
+

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>命令模式</title>
+    <style>
+        /*#canvas{*/
+            /*width: 500px;*/
+            /*height:500px;*/
+            /*border: 1px solid yellow;*/
+        /*}*/
+    </style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+</body>
+</html>
+<script>
+    //绘图命令
+    var CanvasCommand=(function () {
+        var canvas=document.getElementById('canvas');
+        var ctx=canvas.getContext('2d');
+        console.log(ctx);
+
+        var Action={
+            fillRect:function (x,y,w,h) {
+                console.log('fillRect');
+                ctx.fillRect(x,y,w,h);
+            },
+            fillStyle:function (c) {
+                ctx.fillStyle=c;
+            }
+        };
+
+        return {
+            execute:function (msg) {
+                if(!msg){
+                    return;
+                }
+                if(msg.length){
+                    for(var i=0,len=msg.length;i<len;i++){
+                        Action[msg[i].command].call(Action,msg[i].param);
+                    }
+                }
+            }
+        }
+    })();
+
+    //写一条命令
+    CanvasCommand.execute([
+//        {command:'fillStyle',param:'red'},
+        {command:'fillRect',param:[20,20,100,100]}
+    ]);
+
+
+
+
+
+
+
+</script>
+
+

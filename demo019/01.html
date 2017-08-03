@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>简单模板模式</title>
+</head>
+<body>
+    <div id="container"></div>
+</body>
+</html>
+<script>
+    var A=A || {};
+    A.root=document.getElementById('container');
+    A.strategy={
+        'listPart':function(data) {
+            var s=document.createElement('div'),
+                ul='',
+                ldata=data.data.li,
+//                tpl=['<h2>{#h2#}</h2>','<p>{#p#}</p>','<ul>{#ul#}</ul>'].join(''),
+//                liTpl=['<li>','<strong>{#strong#}</strong>','<span>{#span#}</span>','</li>'].join('');
+                tpl=A.view(['h2','p','ul']);
+                liTpl=A.view('li');
+            data.id && (s.id=data.id);
+
+            for(var i=0,len=ldata.length;i<len;i++){
+                if(ldata[i].strong || ldata[i].span){
+                    ul+=A.formatString(liTpl,ldata[i]);
+                }
+            }
+            data.data.ul=ul;
+            s.innerHTML=A.formatString(tpl, data.data);
+            A.root.appendChild(s);
+        },
+        'codePart':function () {
+
+        },
+        'onlyTitle':function () {
+
+        },
+        'guide':function () {
+
+        }
+    };
+    A.init=function (data) {
+        this.strategy[data.type](data);
+    }
+    A.view=function (name) {
+       var v={
+           code:'<pre><code>{#code#}</code></pre>',
+           img:'<img src="{#src#}" alt="{#alt#}" title="{#title#}"/>',
+           part:'<div id="{#id#}" class="{#class#}">{#part#}</div>',
+           theme:['<div>','<h1>{#title#}</h1>','{#content}','</div>'].join(''),
+           h2:'<h2>{#h2#}</h2>',
+           p:'<p>{#p#}</p>',
+           ul:'<ul>{#ul#}</ul>',
+           li:['<li>','<strong>{#strong#}</strong>','<span>{#span#}</span>','</li>'].join('')
+       };
+       if(Object.prototype.toString.call(name)=='[object Array]'){
+           var tpl='';
+           for(var i=0,len=name.length;i<len;i++){
+               tpl+=arguments.callee(name[i]);
+           }
+           return tpl;
+       }else{
+           return v[name]?v[name]:name+" 模板不存在!";
+       }
+    }
+    A.formatString=function (str,data) {
+        return str.replace(/\{#(\w+)\#}/g, function (match,key) {
+            return typeof data[key]===undefined ? '' : data[key]
+        });
+    }
+    A.init({type:'listPart',id:'123',data:{
+        h2:'我是标题',
+        p:'我是正文',
+        li:[
+            {strong:'strong1',span:'span1'},
+            {strong:'strong2',span:'span2'},
+            {strong:'strong3',span:'span3'},
+            {strong:'strong4',span:'span4'},
+            {strong:'strong5',span:'span5'},
+            {strong:'strong6',span:'span6'}
+        ]
+    }});
+
+
+
+
+
+
+</script>
+

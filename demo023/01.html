@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>同步模块模式</title>
+</head>
+<body>
+    <div id="test">  test  </div>
+
+</body>
+</html>
+<script>
+    //请求发出后,无论模块是否存在,立即执行后续的逻辑,实现模块开发中对模块的立即引用
+    //一,模块管理器对象
+    var F=F || {};
+    /**
+     * str: 模块路由
+     * fn: 模块方法
+     * **/
+    F.define=function (str,fn) {
+        var parts=str.split('.');
+        var old;
+        var parent;
+        old=parent=this;
+
+        if(parts[0]==='F'){
+            parts=parts.slice(1);
+        }
+        if(parts[0]==='define' || parts[0]==='module'){
+            return;
+        }
+        for(var i=0,len=parts.length;i<len;i++){
+            if(typeof parent[parts[i]] === 'undefined'){
+                parent[parts[i]]={};
+            }
+            old=parent;
+            parent=parent[parts[i]];
+        }
+        if(fn){
+            old[parts[--i]]=fn();
+        }
+        return this;
+    }
+    //二, 创建模块
+    F.define('string',function () {
+        return {
+            trim:function (str) {
+                return str.replace(/^\s+|\s+$/g,'');
+            }
+        }
+    });
+    F.define('dom',function () {
+        var $=function (id) {
+            $.dom=document.getElementById(id);
+            return $;
+        }
+        $.html=function (html) {
+            if(html){
+                this.dom.innerHTML=html;
+                return this;
+            }else{
+                return this.dom.innerHTML;
+            }
+        }
+        return $;
+    });
+     F.define('dom.addClass');
+     F.dom.addClass=(function (type,fn) {
+         return function (className) {
+             console.log('123123123123');
+             console.log(this);
+             if(!~this.dom.className.indexOf(className)){
+                this.dom.className+=' '+className;
+             }
+         }
+     })();
+    //测试
+//    var str=F.string.trim('测试用例.    ');
+//    console.log(str);
+//    var html=F.dom('test').html();
+//    console.log(html);
+
+    //三, 调用模块
+    F.module=function () {
+        var args=[].slice.call(arguments);
+        var fn=args.pop();
+        var parts=(args[0] && (args[0] instanceof Array)) ? args[0]:args;
+        var modules=[];
+        var modIDs='';
+        var i=0;
+        var ilen=parts.length;
+        var parent, j, jlen;
+        while(i<ilen){
+            if(typeof parts[i] === 'string'){
+                parent=this;
+                modIDs=parts[i].replace(/^F\./,'').split('.');
+                for(j=0,jlen=modIDs.length;j<jlen;j++){
+                    parent=parent[modIDs[j]] || false;
+                }
+                modules.push(parent);
+            }else{
+                modules.push(parts[i]);
+            }
+            i++;
+        }
+        fn.apply(null,modules);
+    }
+
+    //四, 调用模块
+//    F.module(['dom',document],function (dom,doc) {
+//        dom('test').html('new add!');
+//        doc.body.style.background='#f00';
+//    });
+
+    F.module('dom','string.trim',function(dom,trim){
+        var html=dom('test').html();
+        var str=trim(html);
+        console.log("**"+html+'**',"***"+str+'***');
+    });
+
+
+</script>
+
+

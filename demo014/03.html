@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>同步变量迭代器</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    var A={
+        common:{},
+        client:{
+            user:{
+                username:'雨夜清河',
+                uid:'123'
+            }
+        },
+        server:{}
+    };
+    //取值器
+    var AGetter=function (key) {
+        if(!key){
+            return undefined;
+        }
+        var result=A;
+        var key=key.split('.');
+        for(var i=0,len=key.length;i<len;i++){
+            if(result[key[i]]!==undefined){
+                result=result[key[i]];
+            }else{
+                return undefined;
+            }
+        }
+        return result;
+    }
+
+    console.log(AGetter('client.user.username'));
+    console.log(AGetter('client.server.lang.local'));
+
+    //赋值器
+    var ASetter=function (key,val) {
+        if(!A){
+            return false;
+        }
+        var result=A;
+        var key=key.split('.');
+        for(var i=0,len=key.length;i<len-1;i++){
+            if(result[key[i]]===undefined){
+                result[key[i]]={};
+            }
+            if(!(result[key[i]] instanceof Object)){
+                throw new Error("A."+key.splice(0,i+1).join('.')+" is not Object!");
+                return false;
+            }
+            result=result[key[i]];
+        }
+        return result[key[i]]=val;
+    }
+
+    console.log(ASetter('client.module.news.sports','on'));
+    console.log(ASetter('client.user.username.sports','off'));
+
+</script>
+
