@@ -5,11 +5,148 @@
     <title>异步模块模式</title>
 </head>
 <body>
-
+    <button id="demo">我是一个div, 点击我啊</button>
 </body>
 </html>
 <script>
     //请求发出后,继续其他业务逻辑,直到模块加载完成执行后续的逻辑,实现模块开发中对模块加载完成后的引用
+
+    //一, 闭包环境:目的是封闭已创建的模块,
+    ~(function (F) {
+       var moduleCache={};
+       var setModule=function (moduleName,params,callback) {
+           var _module,fn;
+           if(moduleCache[moduleName]){
+               _module=moduleCache[moduleName];
+               _module.status='loaded';
+               _module.exports=callback ? callback.apply(_module,params) : null;
+               while(fn=_module.onload.shift()){
+                   fn(_module.exports);
+               }
+           }else{
+               callback && callback.apply(null, params);
+           }
+       };
+       //---三, 加载模块
+       var loadModule=function (moduleName,callback) {
+           var _module;
+           //如果依赖模块被要求加载过
+           if(moduleCache[moduleName]){
+               _module=moduleCache[moduleName];
+               //如果模块加载完成
+               if(_module.status==='loaded'){
+                   //执行模块加载完成回调函数
+                   setTimeout(callback(module.exports),0);
+               }else{
+                   //缓存该模块所处文件加载完成回调函数;
+                   _module.onload.push(callback);
+               }
+           }else{
+               //如果模块第一次被依赖引用
+
+               //缓存该模块初始化信息
+               moduleCache[moduleName]={
+                   moduleName:moduleName,
+                   status:'loading',
+                   exports:null,
+                   onload:[callback]
+               };
+               //加载模块对应文件
+               loadScript(getUrl(moduleName));
+           }
+       };
+
+        var getUrl=function (moduleName) {
+            return String(moduleName).replace(/\.js$/g,'')+'.js';
+        };
+        var loadScript=function (src) {
+            var _script=document.createElement('script');
+            _script.type='text/script';
+            _script.src=src;
+            document.getElementsByTagName('head')[0].appendChid(_script);
+        };
+    })((function () {
+        return window.F={};
+    })());
+    console.log(window.F);
+    //二, 创建与调度模块:遍历所有依赖模块,并判断所有模块都存在才可执行回调函数,否则加载相应文件,知道文件加载完成才执行回调函数
+    F.module=function (url,modDeps,modCallback) {
+        var args=[].slice.call(arguments);
+        //获取模块构造函数
+        var callback=args.pop();
+        //获取依赖模块
+        var deps=(args.length && arg[args.length-1] instanceof Array)?args.pop():[];
+        //依赖模块序列
+        var prams=[];
+        //未加载的依赖模块数量统计
+        var depsCount=0;
+        //依赖模块序列中索引值
+        var i=0;
+        //依赖模块序列长度
+        var len;
+        if(len=deps.length){
+           while(i<len){
+               (function (i) {
+                   //增加未加载依赖模块数量统计
+                   depsCount++;
+                   //异步加载依赖模块
+                   loadModule(deps[i],function (mod) {
+                       params[i]=mod;
+                       depsCount--;
+                       if(depsCount===0){
+                           setModule(url,params,callback);
+                       }
+                   });
+               })(i);
+           }
+        }else{
+            //没有依赖模块,直接执行回调函数
+            setModule(url,[],callback);
+        }
+
+        //测试
+        F.module('lib/dom',function () {
+            return {
+                g:function (id) {
+                    return document.getElementById(id);
+                },
+                html:function (id,html) {
+                    if(html){
+                        this.g(id).innerHTML=html;
+                    }else{
+                        return this.g(id).innerHTML;
+                    }
+                }
+            }
+        });
+        F.module('lib/event',['lib/dom'],function (dom) {
+            return {
+              on:function (id,type,fn) {
+                  dom.g(id)['on'+type]=fn;
+              }
+            };
+        })
+
+        //实现交互
+        F.module(['lib/event','lib/dom'],function (events,dom) {
+            events.on('demo','click',function () {
+                dom.html('demo','success');
+            })
+        })
+
+        console.log(F);
+
+
+
+
+
+
+
+
+
+
+
+    }
 
 
 

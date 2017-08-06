@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MVC模式</title>
+    <script src="../jquery-2.1.1.min.js"></script>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    $(function () {
+        var MVC=MVC || {};
+        MVC.model=(function () {
+            var M={};
+            M.data={
+                sideBar:[{
+                    text:'网络剧',
+                    title:'罗密欧'
+                },{
+                    text:'热帖',
+                    title:'朱丽叶'
+                },{
+                    text:'动漫',
+                    title:'李思威'
+                }]
+            };
+            M.conf={
+                slideBarCloseAnimate:false
+            };
+            return {
+                getData:function (m) {
+                    return M.data[m];
+                },
+                getConf:function (c) {
+                    return M.conf[c];
+                },
+                setData:function (m,v) {
+                    M.data[m]=v;
+                    return this;
+                },
+                setConf:function (c,v) {
+                    M.conf[c]=v;
+                    return this;
+                }
+            }
+        })();
+        MVC.view=(function () {
+            var M=MVC.model;
+            var V={
+                createSlideBar:function () {
+                    console.log('--------------------');
+                    console.log('MVC.view中的防范createSlideBar!'+', data:\n');
+                    console.log(M.getData('sideBar'));
+                    console.log('--------------------');
+                }
+            };
+            return function (v) {
+                V[v]();
+            }
+
+        })();
+        MVC.ctrl=(function () {
+            var M=MVC.model;
+            var V=MVC.view;
+            var C={
+                initSlideBar:function () {
+                    //创建视图并注入数据;
+                   V('createSlideBar');
+                   //给视图添加事件;
+                   console.log('控制层给页面加入业务逻辑!');
+                }
+            };
+            //初始化sidebar;
+            C.initSlideBar();
+        })();
+    });
+
+
+
+
+</script>

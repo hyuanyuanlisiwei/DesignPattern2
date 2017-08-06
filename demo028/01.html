@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MVVM模式</title>
+    <style>
+        .ui-progressbar{
+            background-color: #f00;
+        }
+    </style>
+</head>
+<body>
+    <div class="first" data-bind="type:'slider',data:demo1">test1</div>
+    <div class="second" data-bind="type:'slider',data:demo2">test2</div>
+    <div class="third" data-bind="type:'progressbar',data:demo3">test3</div>
+</body>
+</html>
+<script>
+    //模型--视图--视图模型;
+    //通过创建视图反过来控制管理器实现组件需求
+
+    //视图模型层: 在VM中实现对只写元素的监听,并为他们绑定行为.
+    ~(function () {
+        var window=this || (0,eval)('this');
+        var FONTSIZE=function () {
+            return parseInt(document.body.currentStyle ? document.body.currentStyle['fontSize'] : getComputedStyle(document.body,false)['fontSize']);
+        };
+        var VM=(function () {
+            //保存实例化组件方法, 由于创建每类组件方法不同,因此我们将创建UI组件方法作为策略对象的方法保存
+            var Method={
+                progressbar:function (dom,data) {
+                    var progress=document.createElement('div');
+                    var param=data.data;
+                    progress.style.width=(param.position || 100)+'%';
+                    progress.style.height='10px';
+                    dom.className+=' ui-progressbar';
+                    dom.appendChild(progress);
+                },
+                slider:function () {
+                    console.log('slider');
+                }
+            };
+            //为组件点睛
+            function getBindData(dom) {
+                var data=dom.getAttribute('data-bind');
+                return data && (new Function("return ({"+data+"})"))();
+            }
+
+            return function () {
+                var doms=document.getElementsByTagName('*');
+                var ctx=null;
+                for(var i=0;i<doms.length;i++){
+                    ctx=getBindData(doms[i]);
+                    ctx && ctx.type && Method[ctx.type] && Method[ctx.type](doms[i],ctx);
+                }
+            }
+        })();
+        window.VM=VM;
+    })();
+
+    //展现组件
+    var demo1={
+        position:60,
+        totle:200
+    };
+    var demo2={
+        position:20
+    };
+    var demo3={
+        position:50
+    };
+    VM();
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
